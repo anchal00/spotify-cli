@@ -3,7 +3,7 @@ import os
 import webbrowser
 
 import requests
-from dotenv import load_dotenv
+from dotenv import load_dotenv, set_key
 
 AUTH_URL = "https://accounts.spotify.com"
 
@@ -32,6 +32,9 @@ def authenticate():
                              params={"grant_type": "authorization_code", "code": code, "redirect_uri": REDIRECT_URI}, headers=headers)
     if response.ok:
         data = response.json()
-        return (True, data["access_token"])
-    return (False, "")
+        set_key(dotenv_path= os.getcwd() + '/.env', key_to_set="access_token", value_to_set=data["access_token"])
+        set_key(dotenv_path= os.getcwd() + '/.env', key_to_set="refresh_token", value_to_set=data["refresh_token"])
+        # Todo : Add support for using refresh tokens
+        return True
+    return False
 
