@@ -14,7 +14,7 @@ client_id = os.getenv("client_id")
 client_secret  = os.getenv("client_secret")
 
 REDIRECT_URI = "http://localhost:8000/callback"
-scopes = ["user-read-private", "user-read-email", "user-modify-playback-state"]
+scopes = ["user-read-private", "user-read-email", "user-modify-playback-state", "user-read-currently-playing", "user-read-playback-state"]
 
 headers = {
     "Content-Type": "application/x-www-form-urlencoded",
