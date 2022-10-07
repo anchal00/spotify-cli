@@ -38,5 +38,4 @@ if __name__ == "__main__":
     elif args.pause:
         pause_currently_playing_song()
     elif args.volume:
-        # TODO: Fix adjust volume
         adjust_volume(args.volume)

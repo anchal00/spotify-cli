@@ -51,7 +51,7 @@ def play_previous_song():
         print("FAILED to play the previous song")
 
 def adjust_volume(level):
-    response = requests.put(url=API_ENDPOINT + f"/pause?volume_percent={level}", headers=headers)
+    response = requests.put(url=API_ENDPOINT + f"/volume?volume_percent={level}", headers=headers)
     if response.ok:
         print(f"VOLUME set to {level} percent")
     else:
