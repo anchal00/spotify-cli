@@ -34,7 +34,21 @@ def resume_currently_playing_song():
     if response.ok:
         print("RESUMED the playback")
     else:
-        print("FAILED to resumed the playback")
+        print("FAILED to resume the playback")
+
+def play_next_song():
+    response = requests.post(url=API_ENDPOINT + "/next", headers=headers)
+    if response.ok:
+        print("PLAYING NEXT SONG")
+    else:
+        print("FAILED to play the next song")
+
+def play_previous_song():
+    response = requests.post(url=API_ENDPOINT + "/previous", headers=headers)
+    if response.ok:
+        print("PLAYING PREVIOUS SONG")
+    else:
+        print("FAILED to play the previous song")
 
 def adjust_volume(level):
     response = requests.put(url=API_ENDPOINT + f"/pause?volume_percent={level}", headers=headers)

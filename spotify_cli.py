@@ -3,7 +3,7 @@ import sys
 
 import auth
 from playback import (adjust_volume, get_currently_playing_song,
-                      pause_currently_playing_song,
+                      pause_currently_playing_song, play_next_song, play_previous_song,
                       resume_currently_playing_song)
 
 if __name__ == "__main__":
@@ -14,7 +14,8 @@ if __name__ == "__main__":
     # Playback controls
     playback_parser = subparser.add_parser(name="playback", description="Playback controls")
     playback_parser.add_argument("--current", help="Get currently playing song", action="store_true")
-    playback_parser.add_argument("--playnext", help="Play next song", action="store_true")
+    playback_parser.add_argument("--next", help="Play next song", action="store_true")
+    playback_parser.add_argument("--prev", help="Play previous song", action="store_true")
     playback_parser.add_argument("--resume", help="Resume the currently playing song", action="store_true")
     playback_parser.add_argument("--pause", help="Pause currently playing song", action="store_true")
     playback_parser.add_argument("--volume", help="Adjust the volume of currently playing song", type=int)
@@ -30,9 +31,12 @@ if __name__ == "__main__":
         get_currently_playing_song()
     elif args.resume:
         resume_currently_playing_song()
-    elif args.playnext:
-        pass
+    elif args.next:
+        play_next_song()
+    elif args.prev:
+        play_previous_song()
     elif args.pause:
         pause_currently_playing_song()
     elif args.volume:
+        # TODO: Fix adjust volume
         adjust_volume(args.volume)
