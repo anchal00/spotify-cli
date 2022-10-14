@@ -3,12 +3,10 @@ import os
 import webbrowser
 
 import requests
-from dotenv import load_dotenv, set_key
+from dotenv import set_key
 
 AUTH_URL = "https://accounts.spotify.com"
 REDIRECT_URI = "http://localhost:8000/callback"
-
-load_dotenv()
 
 client_id = os.getenv("client_id")
 client_secret  = os.getenv("client_secret")
@@ -22,11 +20,13 @@ scopes = [
 ]
 
 def __get_request_headers():
-    return {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Authorization": "Basic " 
-                        + base64.b64encode((client_id + ":" + client_secret).encode("ascii")).decode("ascii")
-    }
+    if client_id and client_secret:
+        return {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Authorization": "Basic " 
+                            + base64.b64encode((client_id + ":" + client_secret).encode("ascii")).decode("ascii")
+        }
+    return ""
 
 def authenticate():
     scope_str = " ".join(scopes)

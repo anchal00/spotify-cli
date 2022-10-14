@@ -1,18 +1,18 @@
 import os
 
 import requests
-from dotenv import load_dotenv
 from simplejson import JSONDecodeError
-
-load_dotenv()
 
 API_ENDPOINT = "https://api.spotify.com/v1/me/player"
 
 def __get_request_headers():
-    return {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + os.getenv("access_token")
-    }
+    access_token = os.getenv("access_token")
+    if access_token != None:
+        return {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + access_token
+        }
+    return ""
 
 def get_devices():
     response = requests.get(url= API_ENDPOINT + "/devices", headers=__get_request_headers())

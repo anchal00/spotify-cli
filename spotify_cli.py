@@ -1,5 +1,8 @@
 import argparse
+import os
 import sys
+
+from dotenv import load_dotenv
 
 import auth
 from playback import (adjust_volume, get_currently_playing_song, get_devices,
@@ -24,6 +27,10 @@ if __name__ == "__main__":
     playback_parser.add_argument("--devices", help="Get all your devices", action="store_true")
     args = parser.parse_args()
 
+    if not os.path.isfile(".env"):
+        print("Please create .env file in current dir before proceeding")
+        sys.exit()
+    load_dotenv()
     if args.authenticate:
         is_successful = auth.authenticate()
         if is_successful == False:
