@@ -7,13 +7,15 @@ from simplejson import JSONDecodeError
 load_dotenv()
 
 API_ENDPOINT = "https://api.spotify.com/v1/me/player"
-headers = {
-    "Content-Type": "application/json",
-    "Authorization": "Bearer " + os.getenv("access_token")
-}
+
+def __get_request_headers():
+    return {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + os.getenv("access_token")
+    }
 
 def get_devices():
-    response = requests.get(url= API_ENDPOINT + "/devices", headers=headers)
+    response = requests.get(url= API_ENDPOINT + "/devices", headers=__get_request_headers())
     if response.ok:
         devices = response.json().get("devices")
         for device in devices:
@@ -28,7 +30,7 @@ def get_devices():
 
 def search(keyword_type_list):
     keyword, type = keyword_type_list
-    response = requests.get(url=f"https://api.spotify.com/v1/search?q={keyword}&type={type}", headers=headers)
+    response = requests.get(url=f"https://api.spotify.com/v1/search?q={keyword}&type={type}", headers=__get_request_headers())
     if response.ok:
         data = response.json()
         for item in data.get(type+"s")["items"]:
@@ -43,7 +45,7 @@ def search(keyword_type_list):
         print("Couldn't perform search at this moment")
 
 def get_currently_playing_song():
-    response = requests.get(url=API_ENDPOINT + "/currently-playing", headers=headers)
+    response = requests.get(url=API_ENDPOINT + "/currently-playing", headers=__get_request_headers())
     data = None
     try:
         data = response.json()
@@ -59,35 +61,35 @@ def get_currently_playing_song():
             print("Couldn't get currently playing song info")
 
 def pause_currently_playing_song():
-    response = requests.put(url=API_ENDPOINT + "/pause", headers=headers)
+    response = requests.put(url=API_ENDPOINT + "/pause", headers=__get_request_headers())
     if response.ok:
         print("PAUSED the playback")
     else:
         print("FAILED to pause the playback")
 
 def resume_currently_playing_song():
-    response = requests.put(url=API_ENDPOINT + "/play", headers=headers)
+    response = requests.put(url=API_ENDPOINT + "/play", headers=__get_request_headers())
     if response.ok:
         print("RESUMED the playback")
     else:
         print("FAILED to resume the playback")
 
 def play_next_song():
-    response = requests.post(url=API_ENDPOINT + "/next", headers=headers)
+    response = requests.post(url=API_ENDPOINT + "/next", headers=__get_request_headers())
     if response.ok:
         print("PLAYING NEXT SONG")
     else:
         print("FAILED to play the next song")
 
 def play_previous_song():
-    response = requests.post(url=API_ENDPOINT + "/previous", headers=headers)
+    response = requests.post(url=API_ENDPOINT + "/previous", headers=__get_request_headers())
     if response.ok:
         print("PLAYING PREVIOUS SONG")
     else:
         print("FAILED to play the previous song")
 
 def adjust_volume(level):
-    response = requests.put(url=API_ENDPOINT + f"/volume?volume_percent={level}", headers=headers)
+    response = requests.put(url=API_ENDPOINT + f"/volume?volume_percent={level}", headers=__get_request_headers())
     if response.ok:
         print(f"VOLUME set to {level} percent")
     else:
