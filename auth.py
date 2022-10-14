@@ -6,14 +6,12 @@ import requests
 from dotenv import load_dotenv, set_key
 
 AUTH_URL = "https://accounts.spotify.com"
+REDIRECT_URI = "http://localhost:8000/callback"
 
 load_dotenv()
 
-code = None
 client_id = os.getenv("client_id")
 client_secret  = os.getenv("client_secret")
-
-REDIRECT_URI = "http://localhost:8000/callback"
 scopes = [
     "user-read-private",
     "user-read-email",
