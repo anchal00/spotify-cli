@@ -2,9 +2,10 @@ import argparse
 import sys
 
 import auth
-from playback import (adjust_volume, get_currently_playing_song,
+from playback import (adjust_volume, get_currently_playing_song, get_devices,
                       pause_currently_playing_song, play_next_song,
-                      play_previous_song, resume_currently_playing_song)
+                      play_previous_song, resume_currently_playing_song,
+                      search)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Control spotify playback using your command line")
@@ -19,6 +20,8 @@ if __name__ == "__main__":
     playback_parser.add_argument("--resume", help="Resume the currently playing song", action="store_true")
     playback_parser.add_argument("--pause", help="Pause currently playing song", action="store_true")
     playback_parser.add_argument("--volume", help="Adjust the volume of currently playing song", type=int)
+    playback_parser.add_argument("--search", help="Search for a song", type=str, nargs='+')
+    playback_parser.add_argument("--devices", help="Get all your devices", action="store_true")
     args = parser.parse_args()
 
     if args.authenticate:
@@ -39,3 +42,7 @@ if __name__ == "__main__":
         pause_currently_playing_song()
     elif args.volume:
         adjust_volume(args.volume)
+    elif args.search:
+        search(args.search)
+    elif args.devices:
+        get_devices()
