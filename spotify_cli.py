@@ -5,10 +5,11 @@ import sys
 from dotenv import load_dotenv
 
 import auth
-from playback import (adjust_volume, get_currently_playing_song, get_devices,
-                      get_queue, pause_currently_playing_song, play_next_song,
-                      play_previous_song, resume_currently_playing_song,
-                      search)
+from spotify_playback.playback import (adjust_volume,
+                                       get_currently_playing_song, get_devices,
+                                       get_queue, pause_currently_playing_song,
+                                       play_next_song, play_previous_song,
+                                       resume_currently_playing_song, search)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Control spotify playback using your command line")
