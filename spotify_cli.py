@@ -5,7 +5,7 @@ import sys
 from dotenv import load_dotenv
 
 import auth
-from spotify_playback.playback import (adjust_volume,
+from spotify_playback.playback import (add_to_queue, adjust_volume,
                                        get_currently_playing_song, get_devices,
                                        get_queue, pause_currently_playing_song,
                                        play_next_song, play_previous_song,
@@ -27,8 +27,8 @@ if __name__ == "__main__":
     playback_parser.add_argument("--search", help="Search for a song", type=str, nargs='+')
     playback_parser.add_argument("--devices", help="Get all your devices", action="store_true")
     playback_parser.add_argument("--queue", help="Get user's queue", action="store_true")
+    playback_parser.add_argument("--queue-add", help="Add item to the queue", type=str)
     args = parser.parse_args()
-
     if not os.path.isfile(".env"):
         print("Please create .env file in current dir before proceeding")
         sys.exit()
@@ -57,3 +57,5 @@ if __name__ == "__main__":
         get_devices()
     elif args.queue:
         get_queue()
+    elif args.queue_add:
+        add_to_queue(args.queue_add)

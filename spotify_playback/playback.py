@@ -87,4 +87,11 @@ def get_queue():
         for object in queue:
             print_track_info(object)
     else:
-        print(f"FAILED to fetch user's queue: Reason - {data}")
+        print(f"FAILED to fetch user's queue : Reason - {data}")
+
+def add_to_queue(uri):
+    is_ok, data = api_call(path= f"/queue?uri={uri}", method="post", get_json=False)
+    if is_ok:
+        print("Item added to the queue")
+    else:
+        print(f"FAILED to add the item to the queue : Reason - {data}")

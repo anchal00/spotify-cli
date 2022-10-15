@@ -19,6 +19,7 @@ def print_track_info(track):
     print("Track name - {}".format(track.get("name")))
     print("Album - {}".format(track.get("album")["name"]))
     print("URI - {}".format(track.get("uri")))
+    print("ID - {}".format(track.get("id")))
     print_artists_info(track.get("artists"))
     print(f"_________________________________",end="\n\n")
 
@@ -28,5 +29,6 @@ def print_album_info(album):
     print("Type - {}".format(album.get("album_type")))
     print("Tracks - {}".format(album.get("total_tracks")))
     print("URI - {}".format(album.get("uri")))
+    print("ID - {}".format(album.get("id")))
     print_artists_info(album.get("artists"))
     print(f"_________________________________",end="\n\n")
