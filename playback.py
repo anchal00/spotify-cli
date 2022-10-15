@@ -1,7 +1,11 @@
 import os
 
 import requests
+from dotenv import load_dotenv
 from simplejson import JSONDecodeError
+from sklearn.linear_model import enet_path
+
+load_dotenv()
 
 API_ENDPOINT = "https://api.spotify.com/v1/me/player"
 
@@ -55,6 +59,8 @@ def get_currently_playing_song():
         if response.ok and data:
             if data.get("item"):
                 print("CURRENTLY PLAYING song: " + data["item"]["name"])
+                for serial_number, artist in enumerate(data["item"].get("artists")):
+                    print(f"Artist {serial_number + 1} -- " + artist["name"])
             else:
                 print("CURRENTLY PLAYING an " + data["currently_playing_type"])
         else:
@@ -94,3 +100,19 @@ def adjust_volume(level):
         print(f"VOLUME set to {level} percent")
     else:
         print("FAILED to set the volume")
+
+def get_queue():
+    response = requests.get(url=API_ENDPOINT + "/queue", headers=__get_request_headers())
+    if response.ok:
+        data = response.json()
+        queue = data.get("queue")
+        for object in queue:
+            print(f"_________________________________")
+            print("Name - {}".format(object.get("name")))
+            print("Album - {}".format(object.get("album")["name"]))
+            print("URI - {}".format(object.get("uri")))
+            for serial_number, artist in enumerate(object.get("artists")):
+                print(f"Artist {serial_number + 1} -- " + artist["name"])
+            print(f"_________________________________",end="\n\n")
+    else:
+        print("FAILED to fetch user's queue")
