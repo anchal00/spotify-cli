@@ -2,7 +2,7 @@ import argparse
 import os
 import sys
 
-from spotify_playback.spotify_client import SpotifyClient
+from spotify_client import SpotifyClient
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
