@@ -3,11 +3,10 @@ import sys
 
 import spotipy
 from dotenv import load_dotenv
-from spotipy.exceptions import SpotifyException
-from spotipy.oauth2 import SpotifyOAuth
-
 from spotify_playback.utils import (print_album_info, print_playlist_info,
                                     print_track_info)
+from spotipy.exceptions import SpotifyException
+from spotipy.oauth2 import SpotifyOAuth
 
 REDIRECT_URI = "http://localhost:8000/callback"
 
